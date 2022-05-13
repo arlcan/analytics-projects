@@ -1,0 +1,41 @@
+The data used for this project was from a table named hacker_news where we analized the information about the site.
+
+// top 5 Most popular stories 
+SELECT title, score
+FROM hacker_news
+ORDER BY score DESC
+LIMIT 5;
+
+// Recent studies have found that online forums tend to be dominated by a small percentage of their users. To find out if this is the case for Hacker news
+first we must find the sum of the scores
+SELECT SUM (SCORE)
+FROM hacker_news;
+
+Then it must be pinpointed the users who have accumulated a lot of points across their stories.
+
+SELECT user, SUM (SCORE)
+ FROM hacker_news
+ group by user
+ having sum(score) > 200
+ Order by 2 DESC;
+ 
+
+// How many times has a link been posted? 
+SELECT user,
+   COUNT(*)
+FROM hacker_news
+WHERE url LIKE '%watch?v=dQw4w9WgXcQ%'
+GROUP BY user
+ORDER BY COUNT(*) DESC;
+
+// How much these sites bring traffic to hacker news?
+SELECT CASE
+   WHEN url LIKE '%github.com%' THEN 'GitHub'
+  WHEN url LIKE '%github.com%' THEN 'GitHub'
+   WHEN url LIKE '%medium.com%' THEN 'Medium'
+   WHEN url LIKE '%nytimes.com%' THEN 'New York Times'
+   ELSE 'Other'
+  END AS 'Source'
+FROM hacker_news;
+
+
